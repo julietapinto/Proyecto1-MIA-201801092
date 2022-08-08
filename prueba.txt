@@ -1,0 +1,4 @@
+mkdisk -s->3000 -f->BF -u->p -path->"/home/julietapinto/Desktop/July/Archivos/Prueba/Disco1.dsk"
+rmdisk -path->"/home/julietapinto/Desktop/July/Archivos/Prueba/Disco1.dsk"
+mkdisk -s->3000 -u->k -path->/home/julietapinto/Desktop/July/Archivos/Prueba/Disco2.dsk
+fdisk -s->300 -path->/home/Disco1.dsk -name->Particion1
