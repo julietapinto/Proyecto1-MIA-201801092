@@ -16,7 +16,7 @@ struct  partition
 };
 struct mbr{
     int mbr_tamano;
-   // time mbr_fecha_creacion;
+    string mbr_fecha_creacion;
     int mbr_dsk_signature;
     char dsk_fit;
     struct partition mbr_partition_1;

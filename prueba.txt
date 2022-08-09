@@ -1,4 +1,5 @@
-mkdisk -s->3000 -f->BF -u->p -path->"/home/julietapinto/Desktop/July/Archivos/Prueba/Disco1.dsk"
-rmdisk -path->"/home/julietapinto/Desktop/July/Archivos/Prueba/Disco1.dsk"
-mkdisk -s->3000 -u->k -path->/home/julietapinto/Desktop/July/Archivos/Prueba/Disco2.dsk
-fdisk -s->300 -path->/home/Disco1.dsk -name->Particion1
+mkdisk -s->3 -f->FF -path->"/home/julietapinto/Desktop/July/Archivos/Prueba/Disco1.dsk"
+mkdisk -path->/home/julietapinto/Desktop/July/Archivos/Prueba/Disco0.dsk -u->K -s->200
+mkdisk -s->5 -u->M -path->"/home/julietapinto/Desktop/July/Archivos/Prueba/Disco2.dsk"
+mkdisk -s->10 -path->"/home/julietapinto/Desktop/July/Archivos/Prueba/Disco4.dsk"
+fdisk -s->300 -path->/home/julietapinto/Desktop/July/Archivos/Prueba/Disco1.dsk -name->Particion1

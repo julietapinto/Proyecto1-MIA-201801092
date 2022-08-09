@@ -10,9 +10,8 @@ struct fdisk
     string letra;
     string path;
     string tipoparti;
-    string ajuste;
+    string  ajuste;
     string elimina;
     string nombre;
     string add;
-};
-fdisk *fdisc = new fdisk[20];
+}fdisc[20];
