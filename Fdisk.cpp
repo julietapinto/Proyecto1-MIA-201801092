@@ -6,11 +6,11 @@ using namespace std;
 
 struct fdisk
 {
-    int tamano;
-    string letra;
-    string path;
-    string tipoparti;
-    string  ajuste;
+    int tamano; //-s
+    string letra; //-u
+    string path; 
+    string tipoparti; //-t
+    string  ajuste; //-f
     string elimina;
     string nombre;
     string add;

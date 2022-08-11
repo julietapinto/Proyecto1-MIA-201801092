@@ -25,4 +25,4 @@ struct mbr{
     struct partition mbr_partition_4;
     
     
-}arrparticion[20];
+}arrparticion;

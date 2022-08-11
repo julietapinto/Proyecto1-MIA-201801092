@@ -10,6 +10,10 @@
 #include <filesystem>
 #include <cstdlib>
 
+#include <cstring>
+#include <stdlib.h>
+
+
 #include <cstdio>
 
 
@@ -34,8 +38,11 @@ void eliminarmkdisk();
 void guardafdisk(string,string );
 void funcionMBR();
 const string horafechaactual() ;
-void MBR();
+void MBRcomando();
 void particionn(int);
+
+
+
 
 struct mkdisk{
     string nombre;
@@ -91,11 +98,7 @@ void leer(){
             if (primer.compare("mkdisk")==0){
                 cout<<"MKDISKKK -------"<<endl;
                 disco[poscont].nombre= primer;		    
-                //cout<<valu<<endl;
-             
-                
-  
-              
+
                 for (size_t i = 0; i < valu; i++)
                 {
                     
@@ -149,8 +152,8 @@ void leer(){
                      
             posrmkd++;
            
-            cout<<"antes "<<endl;
-            cout<<primer<<endl;
+            //cout<<"antes "<<endl;
+            //cout<<primer<<endl;
             }else if(primer.compare("fdisk")==0){
               
                 
@@ -178,20 +181,9 @@ void leer(){
     crearchivobin();
     eliminarmkdisk();
     cout<<"sale"<<endl;
-    MBR();
+    MBRcomando();
    
     //termina el proceso de leer 
-
-  /*  for (size_t i = 0; i < posrmkd; i++)
-    {
-        cout<<"nomb"<<endl;
-        cout<<arrrmkd[i].nombre<<endl;
-        cout<<"path"<<endl;
-        cout<<arrrmkd[i].path<<endl;
-    }
- 
-
-  */
 
 
     
@@ -223,7 +215,7 @@ void guardamkdisk(string a,string tt){
         }else if ((a.compare("-f"))==0){
             
             if ((ajus[0].compare(b))==0){
-                cout<<"bbbff "<<endl;
+                //cout<<"bbbff "<<endl;
                  cout<<b<<endl;
                 disco[poscont].ajuste = b;
                 
@@ -244,8 +236,11 @@ void guardamkdisk(string a,string tt){
            
             
         }else if ((a.compare("-u"))==0){
-            
-            if((b.compare("K"))==0){
+            if ((b.compare("B"))==0){
+                cout<<b<<endl;
+                disco[poscont].unidad = b;
+
+            }else if ((b.compare("K"))==0){
                 cout<<b<<endl;
                 disco[poscont].unidad = b;
                 
@@ -293,18 +288,20 @@ void crearchivobin()
         cout<<disco[i].unidad;
         result =0;
         fflush(stdin);
-        FILE *arch;
-        const char * c = disco[i].path.c_str();
-        //crea un archivo en la pat que le mando 
-        arch=fopen(c, "wb");
-        
-        if (arch==NULL)
-            exit(1);
+
             if ((disco[i].unidad.compare("K"))==0){
                 // de k a byte 
                 cout<<"**********en k"<<endl;
                 result = disco[i].tamano * 1024;
-                
+    
+                FILE *arch;
+                const char * c = fdisc[i].path.c_str();
+                arch = fopen(c, "wb");
+                if (arch==NULL)
+                    exit(1);
+                    
+                  
+    
                 for (size_t i = 0; i < result; i++)
                 {
                     //una variable char pesa 1 byte 
@@ -313,6 +310,10 @@ void crearchivobin()
                     fwrite(&valor1, sizeof(char), 1, arch);
         
                 }
+            
+
+                fclose(arch);
+
                 if ((disco[i].ajuste.compare(""))==0){
                 cout<<"ajuste en cero f "<<endl;
                 disco[i].ajuste = "FF";
@@ -329,7 +330,7 @@ void crearchivobin()
                     //una variable char pesa 1 byte 
                     //en sizeof mandamos cuanto va a pesar el archivo en bytes 
                     char valor1=0;
-                    fwrite(&valor1, sizeof(char), 1, arch);
+                 
         
                 }
                  if ((disco[i].ajuste.compare(""))==0){
@@ -348,7 +349,7 @@ void crearchivobin()
                     //una variable char pesa 1 byte 
                     //en sizeof mandamos cuanto va a pesar el archivo en bytes 
                     char valor1=0;
-                    fwrite(&valor1, sizeof(char), 1, arch);
+              
         
                 }
                 if ((disco[i].ajuste.compare(""))==0){
@@ -361,7 +362,7 @@ void crearchivobin()
                 cout<<result;
 
         
-            fclose(arch);
+     
     cout<<"------------"<<endl;
       //  cout<<" -pat"+disco[i].path; 
 
@@ -464,7 +465,7 @@ void guardafdisk(string a, string ty){
 
 
 
-void MBR(){
+void MBRcomando(){
     
     cout<<"00000000000000000  crear particion "<<endl;
    // cout<<posfdisk<<endl;
@@ -487,7 +488,7 @@ void MBR(){
                     cout<<"en k"<<endl;
                     result = disco[j].tamano * 1024;
                     
-                    arrparticion[contparti].mbr_tamano = result;
+                    arrparticion.mbr_tamano = result;
                     
                     
                 }else if((disco[j].unidad.compare("M"))==0){
@@ -495,23 +496,23 @@ void MBR(){
                     cout<<"NAAAAA DAAA  AA"<<endl;
                     int m = 1024*1024;
                     result = disco[j].tamano * m;
-                    arrparticion[contparti].mbr_tamano = result;  
+                    arrparticion.mbr_tamano = result;  
 
                 }
                 //fecha de creacion 
                 horafechaactual();
                 cout<<"en hora "<<endl; 
                 cout << "currentDateTime()=" << horafechaactual() << endl; 
-                arrparticion[contparti].mbr_fecha_creacion = horafechaactual();
+                arrparticion.mbr_fecha_creacion = horafechaactual();
 
                 //número random 
                 int a=0, valor=0;
                 a = rand(); // Genera un valor entre 0 y RAND_MAX
-                arrparticion[contparti].mbr_dsk_signature = a;
+                arrparticion.mbr_dsk_signature = a;
                 
 
             
-               // arrparticion[contparti].dsk_fit =fdisc[i].ajuste;
+               // arrparticion.dsk_fit =fdisc[i].ajuste;
             
 
                 cout<<a<<endl;
@@ -524,51 +525,46 @@ void MBR(){
                 if ((disco[j].ajuste.compare("FF")==0)){
                     cout<<"FF-----------------"<<endl;
 
-                    arrparticion[contparti].dsk_fit = 'F';
+                    arrparticion.dsk_fit = 'F';
 
                 }else if((disco[j].ajuste.compare("BF")==0)){
-                    arrparticion[contparti].dsk_fit = 'B';
+                    arrparticion.dsk_fit = 'B';
 
                 }else if ((disco[j].ajuste.compare("WF")==0)){
-                    arrparticion[contparti].dsk_fit = 'W';
+                    arrparticion.dsk_fit = 'W';
 
                 }
             
-               
+
           
 
                 //PARA LA PARTICIÓN 
                 
-                cout<<arrparticion[contparti].mbr_partition_1.part_status<<endl;
+                cout<<arrparticion.mbr_partition_1.part_status<<endl;
 
+                //https://www2.eii.uva.es/fund_inf/cpp/temas/10_ficheros/ficheros_cpp.html
+
+                fstream fichero;
+                const char * c = fdisc[i].path.c_str();
+                fichero.open (c, ios::in | ios::binary | ios::out);
+                fichero.seekp(0); //posición cero 
+                fichero.write((char*)&arrparticion, sizeof(mbr));
+                fichero.close();
                 
+            
+                cout<<arrparticion.mbr_tamano<<endl;
+                cout<<arrparticion.mbr_dsk_signature<<endl;
+                cout<<arrparticion.mbr_fecha_creacion<<endl;
+                
+                    
                 particionn(i);
                 contparti++;
                
                 
 
-            }
-            
-        }
-        
-
+            }  
+        } 
     }
-/*    cout<<"-------------forrrr "<<endl;
-    cout<<"----------dentro de particion ------------------"<<endl;
-    cout<<posfdisk<<endl;
-    for (size_t i = 0; i < (posfdisk); i++)
-    {
-                
-        cout<<fdisc[i].tamano<<endl;
-        cout<<fdisc[i].letra;
-        cout<<fdisc[i].path<<endl;
-        cout<<fdisc[i].tipoparti<<endl;
-        cout<<fdisc[i].ajuste<<endl;
-        cout<<"--------fuera de particion ------------"<<endl;
-
-    }
-    */
-
 
 }
 
@@ -589,22 +585,45 @@ void particionn(int i ){
         cout<<fdisc[i].path<<endl;
         cout<<fdisc[i].tipoparti<<endl;
         cout<<fdisc[i].ajuste<<endl;
-        arrparticion[contparti].mbr_partition_1.part_status = 'A';
+        arrparticion.mbr_partition_1.part_status = 'A';
+       
+
+        if((fdisc[i].letra.compare("K")==0)){
+            
+            cout<<"kilobytes"<<endl;
+            result = fdisc[i].tamano * 1024;
+        
+        }else if ((fdisc[i].letra.compare("B")==0)){
+                cout<<"bytes"<<endl;
+               
+        }else if ((fdisc[i].letra.compare("M")==0)){
+            cout<<"megabytes"<<endl;
+            int ss = 1024*1024;
+            result = fdisc[i].tamano * ss;
+           
+
+        }else if ((fdisc[i].letra.compare("")==0)){
+            cout<<"no tiene bytes se hace k "<<endl;
+            result =1024;
+
+            cout<<"-----------------------------------------------------"<<endl;
+
+         
 
         if ((fdisc[i].tipoparti.compare("P"))==0){
             cout<<"tipo p "<<endl;
-            arrparticion[contparti].mbr_partition_1.part_type = 'P';
+            arrparticion.mbr_partition_1.part_type = 'P';
 
         }else if ((fdisc[i].tipoparti.compare("E"))==0){
             cout<<"tipo E "<<endl;
-            arrparticion[contparti].mbr_partition_1.part_type = 'E';
+            arrparticion.mbr_partition_1.part_type = 'E';
 
         }else if ((fdisc[i].tipoparti.compare("L"))==0){
-            arrparticion[contparti].mbr_partition_1.part_type = 'L';
+            arrparticion.mbr_partition_1.part_type = 'L';
             cout<<"tipo L "<<endl;
 
         }else if ((fdisc[i].tipoparti.compare(""))==0){
-            arrparticion[contparti].mbr_partition_1.part_type = 'P';
+            arrparticion.mbr_partition_1.part_type = 'P';
             cout<<"tipo P"<<endl;
             fdisc[i].tipoparti = "P";
         }
@@ -612,27 +631,40 @@ void particionn(int i ){
 
          if ((fdisc[i].ajuste.compare("BestFit"))==0){
             cout<<"ajuste B "<<endl;
-            arrparticion[contparti].mbr_partition_1.part_fit = 'B';
+            arrparticion.mbr_partition_1.part_fit = 'B';
 
         }else if ((fdisc[i].ajuste.compare("FirstFit"))==0){
-            arrparticion[contparti].mbr_partition_1.part_fit = 'F';
+            arrparticion.mbr_partition_1.part_fit = 'F';
             cout<<"ajuste F "<<endl;
 
         }else if ((fdisc[i].ajuste.compare("WorsFit"))==0){
-            arrparticion[contparti].mbr_partition_1.part_fit = 'W';
+            arrparticion.mbr_partition_1.part_fit = 'W';
             cout<<"ajuste W "<<endl;
 
         }else if ((fdisc[i].ajuste.compare(""))==0){
-            arrparticion[contparti].mbr_partition_1.part_fit = 'W';
+            arrparticion.mbr_partition_1.part_fit = 'W';
             fdisc[i].ajuste = "WorsFit";
         }else{
             cout<<"fdisk -f->Error"<<endl;
         }
-        
 
+        mbr mostrar;
+
+        
+   /*     ifstream archiv (fdisc[i].path, ios::binary);
+        archiv.read((char*)&mostrar, sizeof(mbr));
+        cout<<"tamaño del fic"<<endl;
+        int pos = archiv.tellp();
+        cout<<pos<<endl; 
+       
+        archiv.close();
+   */     
+
+       // cout<<sizeof(mbr)<<endl;
        
         cout<<fdisc[i].elimina<<endl;
         cout<<fdisc[i].nombre<<endl;
         cout<<fdisc[i].add<<endl;
 
-}
+}}
+
