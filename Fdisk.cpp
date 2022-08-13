@@ -12,6 +12,6 @@ struct fdisk
     string tipoparti; //-t
     string  ajuste; //-f
     string elimina;
-    string nombre;
+    char* nombre;
     string add;
 }fdisc[20];

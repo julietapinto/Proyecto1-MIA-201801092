@@ -1,3 +1,3 @@
 mkdisk -s->3000 -u->K -path->"/home/julietapinto/Desktop/July/Archivos/Prueba/Disco1.dsk"
-mkdisk -s->5 -u->M -path->"/home/julietapinto/Desktop/July/Archivos/Prueba/Disco2.dsk"
-fdisk -s->300 -path->/home/julietapinto/Desktop/July/Archivos/Prueba/Disco1.dsk -name->Particion1
+mkdisk -s->100 -u->K -path->"/home/julietapinto/Desktop/July/Archivos/Prueba/Disco2.dsk"
+fdisk -t->E -path->/home/julietapinto/Desktop/July/Archivos/Prueba/Disco1.dsk -u->K -name->Particion1 -s->300

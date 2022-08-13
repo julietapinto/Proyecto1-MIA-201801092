@@ -1,1 +1,1 @@
-fclose(arch);
+entra
